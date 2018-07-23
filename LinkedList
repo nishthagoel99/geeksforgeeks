@@ -1,0 +1,65 @@
+//Creating a linked List insertion
+class LinkedList{
+    Node head;
+    class Node{
+        int data;
+        Node next;
+        Node(int d){
+            this.data=d;
+            next=null;
+        }
+    }
+    public void push(int a){
+        Node n = new Node(a);
+        if(head==null){
+            head=n;
+            head.next=null;
+        }else{
+            n.next=head;
+            head=n;
+        }
+    }
+    
+    public  void append(int a){
+        Node n =new Node(a);
+        if(head==null){
+            head=n;
+        }else{
+	Node last=head;
+            while(last.next!=null){
+                last=last.next;
+            }
+            last.next=n;
+            n.next=null;
+        }
+    } 
+    
+    public void insert(int pos,int a){
+        Node n=new Node(a);
+        int count=1;
+        Node cur=head;
+        while(count<pos-1){
+            cur=cur.next;
+            count++;
+        }
+        n.next=cur.next;
+        cur.next=n;
+    }
+    
+    public  void printlist(){
+        Node x=head;
+        while(x!=null){
+            System.out.println(x.data);
+            x=x.next;
+        }
+    }
+    public static void main(String[] args){
+        LinkedList l=new LinkedList();
+        l.push(1); //insert beginning
+        l.push(2);
+        l.append(3); //insert end
+        l.append(5);
+        l.insert(4,4);  //insert in betwwen(position,data)
+        l.printlist();  //print the list
+    }
+}
