@@ -45,6 +45,22 @@ class LinkedList{
         n.next=cur.next;
         cur.next=n;
     }
+        public void delete(int x){
+        Node temp=head;
+        Node prev=null;
+        if(temp!=null && temp.data==x){
+            head=temp.next;
+            return;
+        }
+        while(temp!=null && temp.data!=x){
+            prev=temp;
+            temp=temp.next;
+        }
+        if(temp==null){
+            return;
+        }
+        prev.next=temp.next;
+    }
     
     public  void printlist(){
         Node x=head;
@@ -60,6 +76,8 @@ class LinkedList{
         l.append(3); //insert end
         l.append(5);
         l.insert(4,4);  //insert in betwwen(position,data)
+	l.delete(3);
+        l.delete(2);
         l.printlist();  //print the list
     }
 }
