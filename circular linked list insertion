@@ -1,0 +1,101 @@
+// "static void main" must be defined in a public class.
+public class Main {
+    
+    class Node{
+        int data;
+        Node next;
+        Node(int d){
+            data=d;
+            next=null;
+        }
+    }
+    Node last;
+    
+    public void insertionbeg(int x){
+        Node temp=new Node(x);
+        if(last==null){
+            last=temp;
+            last.next=last;
+            return;
+        }
+        temp.next=last.next;
+        last.next=temp;
+    }
+    
+        public void insertionend(int x){
+        Node temp=new Node(x);
+        if(last==null){
+            last=temp;
+            last.next=last;
+            return;
+        }
+        temp.next=last.next;
+        last.next=temp;
+        last=temp;
+    }
+    
+    public void insertionbet(int x, int pos){
+        Node temp=new Node(x);
+        int count=1;
+        if(last==null){
+            if(pos==1){
+                last=temp;
+                return;
+            }else{
+                System.out.println("invalid");
+            }
+        }
+        Node cur=last;
+        while(cur.next!=last){
+            count++;
+            cur=cur.next;
+        }
+        System.out.print("no of nodes="+count);
+        if(pos>count+1){
+            System.out.println("Invalid");
+        }else{
+            if(pos==count+1){
+        temp.next=last.next;
+        last.next=temp;
+        last=temp;
+        return;
+            }else if(pos==1){
+        temp.next=last.next;
+        last.next=temp;
+            }else{
+                cur=last;
+                int loc=1;
+                while(loc!=pos-1){
+                    cur=cur.next;
+                    loc++;
+                }
+                temp.next=cur.next;
+                cur.next=temp;
+            }
+        }
+    }
+    
+    public void display(){
+        Node cur=last;
+        if(last==null){
+            System.out.print("list emplty");
+        }
+        while(cur.next!=last){
+            System.out.print(cur.data);
+            cur=cur.next;
+        }
+        System.out.print(cur.data);
+    }
+    
+    public static void main(String[] args) {
+        Main head=new Main();
+        head.insertionbeg(2);
+        head.insertionbeg(3);
+        //head.display();
+        head.insertionend(4);
+        head.insertionend(5);
+        head.insertionend(6);
+        head.insertionbet(7,4);
+        head.display();
+    }
+}
