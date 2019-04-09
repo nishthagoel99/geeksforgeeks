@@ -1,0 +1,85 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdin.h>
+#include<ctype.h>
+#include<string.h>
+#define size 100
+
+char s[100],top=-1;
+
+int p(char x){
+    if(x=='#' || x=='(')
+        return 0;
+    if(x=='+'|| x=='-')
+        return 1;
+    if(x=='*'||x=='/')
+        return 2;
+    if(x=='^'||x=='$')
+        return 3;
+    else
+        return 4;
+}
+
+void push(char x){
+    if(top==size-1){
+        printf("stack full");
+        }
+    s[++top]=x;
+}
+
+char pop(){
+    if(top==-1){
+        printf("stack empty\n");
+        return;
+    }
+  return s[top--];
+}
+
+void display(){
+    int i;
+    if(top==-1){
+        printf("stack empty\n");
+        return;
+    }
+    for(i=0;i<=top;i++){
+        printf("%d\n",s[i]);
+    }
+}
+
+
+void main(){
+    char postfix[100];
+    int i,j=0;
+    // printf("enter infix");
+    // gets(infix);
+    char infix[100]="a+b*(c^d-e)^(f+g*h)-i";
+    push('#');
+    for(i=0;i<strlen(infix);i++){
+        if(isalnum(infix[i])){
+            postfix[j++]=infix[i];
+        }
+        else if(infix[i]='('){
+            push(infix[i]);
+        }
+        else if(infix[i]==')'){
+            while(s[top]!='('){
+                postfix[j++]=pop();
+            }
+        pop();
+        }
+        
+        else {
+        while(p(s[top])>=p(infix[i])){
+            postfix[j++]=pop();
+        }
+        push(infix[i]);
+        }
+        
+    }
+    while(s[top]!='#'){
+        postfix[j++]=pop();
+    }
+    postfix[j]='\0';
+    
+    puts(postfix);
+}
