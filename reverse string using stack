@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<string.h>
+#define size 10
+int s[100],top=-1;
+void push(char x){
+    if(top==size-1){
+        printf("stack full");
+        }
+    s[++top]=x;
+}
+
+char pop(){
+    if(top==-1){
+        printf("stack empty\n");
+        return;
+    }
+  return s[top--];
+}
+
+void main(){
+    char str1[100]="helloworld",str2[100];
+    int i;
+    for(i=0;i<strlen(str1);i++){
+        push(str1[i]);
+    }
+    for(i=0;i<strlen(str1);i++){
+        str2[i]=pop();
+    }
+    str2[strlen(str1)]='\0';
+    puts(str2);
+}
