@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+#define size 5
+
+int s[50],top=-1;
+
+    
+void push(int x){
+    if(top==size-1){
+        printf("stack full");
+        return;
+    }
+    s[++top]=x;
+}
+
+int pop(){
+    if(top==-1){
+        printf("stack empty");
+        return;
+    }
+    return s[top--];
+}
+
+void main() {
+
+    int op1,op2,i;
+    // printf("enter postfix");
+    // gets(postfix);
+    char postfix[100]="231*+9-";
+    
+    for(i=0;i<strlen(postfix);i++){
+        if(isdigit(postfix[i])){
+            push(postfix[i]-'0');
+        }else{
+            op2=pop();
+            op1=pop();
+            switch(postfix[i]){
+                case '+':push(op1+op2);
+                        break;
+                case '-':push(op1-op2);
+                        break;
+                case '*':push(op1*op2);
+                        break;
+                case '/':push(op1/op2);
+                        break;
+                
+            }
+            
+        }
+    }
+            printf("result is %d",pop());
+    
+}
