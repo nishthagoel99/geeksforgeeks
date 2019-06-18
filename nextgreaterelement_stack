@@ -1,0 +1,42 @@
+#include <stdio.h>
+#define size 10
+int s[10],top=-1;
+
+void push(int x){
+    if(top==size-1){
+        return;
+    }
+    s[++top]=x;
+}
+
+int pop(){
+   
+    return s[top--];
+}
+
+void printgreater(int a[10],int n){
+    int i,next,element;
+    push(a[0]);
+     for(i=1;i<n;i++){
+          next=a[i];
+         if(top!=-1){
+           element=pop();
+          while(next>element){
+             printf("%d ---> %d\n",element,next);
+             if(top!=-1)
+                element=pop();
+         }
+         if(element>next)
+            push(element);
+         }
+         push(next);
+    }
+    while(top!=-1){
+        element=pop();
+        printf("%d---> -1 \n",element);
+    }
+} 
+void main(){
+    int a[]={13,16,4,6};
+    printgreater(a,4);
+}
