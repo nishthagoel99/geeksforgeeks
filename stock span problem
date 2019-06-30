@@ -1,0 +1,30 @@
+#include <stdio.h>
+int s[50],top=-1;
+void push(int x){
+    s[++top]=x;
+}
+int pop(){
+    return s[top--];
+}
+void stockspan(int p[]){
+    int i,value;
+    push(0);
+    printf("1");
+    for(i=1;i<6;i++){
+        while(p[s[top]]<=p[i] && top!=-1){
+            pop();
+        }
+        value=i-s[top];
+        printf("%d",value);
+        push(i);
+    }
+    
+}
+
+int main()
+{
+    //printf("Hello, World!\n");
+    int price[] = { 10, 4, 5, 90, 120, 80 };
+    stockspan(price);
+    return 0;
+}
