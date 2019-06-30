@@ -1,0 +1,49 @@
+#include <stdio.h>
+int s[50],top=-1,min[50],topmin=-1;
+void push(int x){
+    int y;
+    s[++top]=x;
+    if(topmin==-1){
+        min[++topmin]=x;
+    }else{
+        y=min[topmin];
+        if(x<y){
+            min[++topmin]=x;
+        }
+    }
+}
+int pop(){
+    int temp;
+    if(top==-1){
+        printf("stack empty");
+        return -1;
+    }
+    temp= s[top--];
+    if(temp==min[topmin]){
+        min[topmin--];
+    }else{
+
+    }
+}
+void display(){
+    int i;
+    for(i=top;i>=0;i--){
+        printf("%d\n",i);
+    }
+}
+void getmin(){
+    printf("%d\n", min[topmin--]);
+}
+int main()
+{
+    //printf("Hello, World!\n");
+    push(10); 
+    push(20); 
+    push(30);
+    getmin();
+    push(5);
+    getmin();
+    pop();
+    push(2);
+    getmin();
+}
