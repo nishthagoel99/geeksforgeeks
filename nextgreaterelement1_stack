@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int s[50],top=-1;
+void push(int x){
+    s[++top]=x;
+}
+int pop(){
+    return s[top--];
+}
+void getgreatest(int a[]){
+    int i,ele,next;
+    push(a[0]);
+	for(i=1;i<4;i++){
+	    next=a[i];
+	    ele=pop();
+	    while(ele<next){
+	        printf("%d----->%d\n",ele,next);
+	        if(top==-1)
+	            break;
+	        ele=pop();
+	       
+	    }
+	    if(ele>next){
+	        push(ele);
+	    }
+	     push(next);
+	}
+	while(top!=-1){
+	    ele=pop();
+	    printf
+	    ("%d----->-1\n",ele);
+	}
+}
+int main() {
+	//code
+	int a[]={13,2,4,15};
+	getgreatest(a);
+	return 0;
+}
