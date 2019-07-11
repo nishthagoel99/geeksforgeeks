@@ -1,0 +1,33 @@
+#include <stdio.h>
+int q[10],f=0,r=-1,count=0;
+
+void push(int x){
+    q[++r]=x;
+    count++;
+}
+
+void pop(){
+    int i;
+    
+    while(count!=1){
+        q[++r] = q[f++];
+        count--;
+    }
+    
+    printf("%d is deleted \n",q[f++]);
+    
+    
+}
+
+void main()
+{
+int i;
+//q[ ]={1,2,3,4};
+push(1);
+push(2);
+push(3);
+pop();
+for(i=f;i<=r;i++){
+    printf("%d",q[i]);
+}
+}
