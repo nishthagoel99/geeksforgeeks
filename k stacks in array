@@ -1,0 +1,44 @@
+#include <stdio.h>
+int k=3,arr[10],tops[5],next[10],free1=0;
+
+void implement(){
+    int i;
+    for(i=0;i<k;i++){
+        tops[i]=-1;
+    }
+    for(i=0;i<10;i++){
+        next[i]=i+1;
+    }
+}
+
+void push(int num,int x){
+    int i=free1;
+    free1=next[i];
+    next[i]=tops[num];
+    tops[num]=i;
+    arr[i]=x;
+}
+
+int pop(int num){
+    int i=tops[num];
+    tops[i]=next[i];
+    next[i]=free1;
+    free1=i;
+    return arr[i];
+}
+
+void main(){
+    implement();
+    push(0,1);
+     push(0,2);
+      push(1,8);
+       push(0,3);
+       push(2,19);
+        push(1,9);
+         push(1,10);
+         push(2,20);
+         
+    printf("%d is popped from st1 /n" , pop(0));
+    printf("%d is popped from st2 /n" , pop(1));
+    printf("%d is popped from st3/n" , pop(2));
+    
