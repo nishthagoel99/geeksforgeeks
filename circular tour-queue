@@ -1,0 +1,42 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+struct c{
+    int petrol;
+    int distance;
+};
+int tour(struct c arr[],int n){
+    int start=0,end=1,cur;
+    cur=arr[start].petrol-arr[start].distance;
+    while(start!=end || cur<0){
+        while(cur<0 && start!=end){
+            cur-=arr[start].petrol - arr[start].distance;
+            start=(start+1)%n;
+            
+            if(start==0)
+                return -1;
+        }
+
+        cur+=arr[end].petrol-arr[end].distance;
+        end=(end+1)%n;
+    }
+    return start;
+}
+
+int main()
+{
+     struct c arr[] = {{6, 4}, {3, 6}, {7, 3}}; 
+  
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    int start = tour(arr, n); 
+  
+    (start == -1)? printf("No solution"): printf("Start = %d", start); 
+  
+    return 0; 
+}
