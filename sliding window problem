@@ -1,0 +1,41 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.Deque; 
+import java.util.LinkedList; 
+public class Main
+{
+    public static void printma(int arr[],int k){
+        Deque<Integer> qi = new LinkedList<Integer>();
+        int n = arr.length;
+        int i;
+        for(i=0;i<k;i++){
+            while(!qi.isEmpty() && arr[i]>arr[qi.peekLast()]){
+                qi.removeLast();
+            }
+            qi.addLast(i);
+        }
+        
+        for( ;i<n;i++){
+            System.out.println(arr[qi.peek()]);
+            while(!qi.isEmpty() && qi.peek()<=i-k ){
+                qi.removeFirst();
+            }
+            while(!qi.isEmpty() && arr[i]>arr[qi.peekLast()]){
+                qi.removeLast();
+            }
+            qi.addLast(i);
+            
+        }
+        System.out.println(arr[qi.peek()]);
+    }
+    
+	public static void main(String[] args) {
+	    int arr[] = { 12, 1, 78, 90, 57, 89, 56 }; 
+	    printma(arr,3);
+	}
+}
