@@ -1,0 +1,28 @@
+
+int count1=0;
+int count(NODE cur){
+    if(cur!=NULL){
+        count(cur->next);
+        count1++;
+    }
+    return(count1);
+}
+
+
+
+int main()
+{
+    int c;
+    insertbeg(1);
+    insertbeg(2);
+    insertend(3);
+    insertend(4);
+    insertafternode(5,1);
+    display();
+    printf("\n");
+    c= count(first);
+    printf("%d",c);
+    //deletekey(10);
+    // deletepos(4);
+    //display();
+}
