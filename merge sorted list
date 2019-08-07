@@ -50,18 +50,7 @@ struct Node* SortedMerge(struct Node* a, struct Node* b)
     return(dummy.next); 
 } 
   
-/* UTILITY FUNCTIONS */
-/* MoveNode() function takes the node from the front of the 
-   source, and move it to the front of the dest. 
-   It is an error to call this with the source list empty. 
-  
-   Before calling MoveNode(): 
-   source == {1, 2, 3} 
-   dest == {1, 2, 3} 
-  
-   Affter calling MoveNode(): 
-   source == {2, 3} 
-   dest == {1, 1, 2, 3} */
+
 void MoveNode(struct Node** destRef, struct Node** sourceRef) 
 { 
     /* the front source node  */
@@ -79,8 +68,7 @@ void MoveNode(struct Node** destRef, struct Node** sourceRef)
 } 
   
   
-/* Function to insert a node at the beginging of the 
-   linked list */
+
 void push(struct Node** head_ref, int new_data) 
 { 
     /* allocate node */
