@@ -1,0 +1,192 @@
+
+    
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node* next;
+};
+typedef struct node* NODE;
+NODE first1=NULL,first2=NULL,first3=NULL;
+//first=NULL;
+
+void insertbeg1(int x){
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->next=NULL;
+    temp->data=x;
+    if(first1==NULL){
+        first1=temp;
+        return;
+    }
+    temp->next=first1;
+    first1= temp;
+}
+
+void insertbeg2(int x){
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->next=NULL;
+    temp->data=x;
+    if(first2==NULL){
+        first2=temp;
+        return;
+    }
+    temp->next=first2;
+    first2= temp;
+}
+
+int getlength(NODE x){
+    int count=0;
+    NODE cur=x;
+    while(cur!=NULL){
+        count++;
+        cur=cur->next;
+    }
+    return count;
+}
+
+void insertend(int x){
+    NODE cur,result;
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->next=NULL;
+    temp->data=x;
+    if(result==NULL){
+        result=temp;
+        return;
+    }
+    cur=result;
+    while(cur->next!=NULL)
+        cur= cur->next;
+    cur->next=temp;
+    first3=result;
+}
+
+void display(NODE first){
+    NODE cur;
+    if(first==NULL){
+        printf("empty list");
+        return;
+    }
+    cur=first;
+    while(cur!=NULL){
+        printf("%d\t",cur->data);
+        cur=cur->next;
+    }
+}
+
+NODE merge(NODE first1,NODE first2){
+    //printf("heree\n");
+    NODE a=first1;
+    NODE b=first2;
+    NODE result=NULL;
+    if(a==NULL)
+        return b;
+    else if(b==NULL)
+        return a;
+    // if(a!=NULL || b!=NULL){
+    //   //  printf("hahahha\n");
+    // while(a!=NULL && b!=NULL){
+        //printf("hea");
+        if(a->data<=b->data){
+            result =a;
+            result->next=merge(a->next,b);
+            // if(result==NULL){
+            //     result = a;
+            // }else{
+            //     result->next=a;
+            //     a= a->next;
+            // }
+        }else{
+            result=b;
+            result->next = merge(a,b->next);
+            //  if(result==NULL){
+            //     result = b;
+            // }else{
+            //     result->next=b;
+            //     b= b->next;
+            // }
+            }
+    //     }   
+    // }
+    // while(a!=NULL){
+    //     result->next=a;
+    //     a=a->next;
+    // }
+    // while(b!=NULL){
+    //     result->next=b;
+    //     b=b->next;
+    // }
+    return result;
+}
+
+NODE split1(NODE first1){
+   
+    NODE half1;
+    half1= first1;
+    return half1;
+}
+
+NODE split2(NODE first1){
+     int mid,i=0,l;
+    NODE cur=first1,prev,half2;
+    l = getlength(first1);
+    mid=l/2;
+    while(i!=mid){
+        prev=cur;
+        cur=cur->next;
+        i++;
+    }
+    half2=cur;
+    prev->next=NULL;
+    return half2;
+}
+
+void mergesort(NODE first1){
+    // NODE first1;
+    if((first1==NULL) || (first1->next==NULL))
+        return;
+    // printf("\nsbafbakf\n");
+    NODE half1,half2;
+    half1 = split1(first1);
+    half2 = split2(first1);
+    printf("half1: ");
+    display(half1);
+    printf("half2: ");
+    display(half2);
+     printf("\n");
+     mergesort(half2);
+     mergesort(half1);
+    first1 = merge(half1,half2);
+     printf("hehahhahahhahhaha\n");
+     display(first1);
+    // printf("fhagfisakfgsa\n");
+}
+
+int main()
+{
+    insertbeg1(2);
+    insertbeg1(3);
+    insertbeg1(4);
+    insertbeg1(5);
+    //   insertbeg2(20);
+    //       insertbeg2(4);
+    // insertbeg2(2);
+    //insertafternode(5,1);
+    display(first1);
+    printf("linkedlist1\n");
+    // display(first2);
+    //  printf("linkedlist2\n");
+    // l= getlength()
+     mergesort(first1);
+     printf("\nlist is:");
+    // first3 = merge(first1,first2);
+     display(first1);
+}
