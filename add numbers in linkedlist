@@ -1,0 +1,141 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int st[100] ,top=-1;
+
+struct Node 
+{ 
+    int data; 
+    struct Node* next; 
+}; 
+
+typedef struct Node* NODE;
+//NODE first1,first2;
+NODE first1=NULL;
+NODE first2=NULL;
+NODE final = NULL;
+
+void push(int x){
+    st[++top]=x;
+}
+
+int pop(){
+    return st[top--];
+}
+
+NODE insert(int x,NODE first){
+    NODE temp=(NODE)malloc(sizeof(struct Node));
+    temp->data=x;
+    temp->next=NULL;
+    if(first==NULL){
+        first=temp;
+        return first;
+    }
+
+    temp->next=first;
+    first=temp;
+    return first;
+}
+
+void display(NODE first){
+    NODE cur;
+    cur=first;
+    if(first==NULL){
+        printf("empty list");
+        return;
+    }
+    while(cur!=NULL){
+        printf("%d -> ",cur->data);
+        cur = cur->next;
+    }
+    printf("\n");
+}
+
+void storenumbers(NODE first){
+    NODE cur;
+    cur=first;
+    while(cur!=NULL){
+        push(cur->data);
+        cur=cur->next;
+    }
+}
+
+int getnumbers(){
+    char result[100];
+    char str[100] = "";
+    int x;
+    while(top!=-1){
+       // b = '0'+ pop();
+        sprintf(result, "%d", pop()); //int to string
+       // printf("%f",sizeof(b));
+        strcat(str,result);
+    }
+    sscanf(str, "%d", &x);  //string to int
+    printf("x= %d\n",x);
+    return x;
+}
+
+int add(int a,int b){
+    // a = a-'0';
+    // b = b-'0';
+   printf("%d , %d \n",a,b);
+    return a+b;
+}
+
+int addlinkedlist(){
+    
+    int str1,str2;
+    storenumbers(first1);
+    str1 = getnumbers();
+    storenumbers(first2);
+    str2 = getnumbers();
+    printf("%d , %d \n",str1,str2);
+    int sum = add(str1,str2);
+    printf("SUM = %d\n",sum);
+    return sum;
+}
+
+NODE makelinkedlist(int n,NODE final){
+   int x,rem,prev;
+    while(n!=0){
+        rem=n%10;
+        n=n/10;
+        // printf("r = %d",rem);
+        // printf("n1 = %d",n);
+        //printf("n = %d",n);
+            push(rem);
+
+    }
+    
+    while(top!=-1){
+        x = pop();
+      //  printf("x = %d \n",x);
+       final =  insert(x,final);
+    }
+    return final;
+}
+
+void main(){
+    int n;
+    first1 = insert(2,first1);
+    first1 =  insert(3,first1);
+      first2 = insert(5,first2);
+    first2 =  insert(1,first2);
+    first2 =   insert(9,first2);
+       display(first1);
+       display(first2);
+       n = addlinkedlist();
+       final = makelinkedlist(n,final);
+       display(final);
+}
+
+
+  
