@@ -1,0 +1,65 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+ struct node{
+     void* data;
+     struct node* next;
+ };
+ typedef struct node* NODE;
+ NODE first=NULL;
+ 
+ void push(void* x,size_t datasize){
+     NODE temp;
+     temp=(NODE)malloc(sizeof(struct node));
+     temp->data = malloc(datasize);
+     temp->next=first;
+     int i;
+     for(i=0;i<datasize;i++){
+         *(char*)(temp->data+i) = *(char*)(x+i);
+     }
+    //  if(first==NULL){
+    //      first=temp;
+    //      printf("ehere");
+    //      return;
+    //  }
+    //  first->next=temp;
+     first = temp;
+ }
+ 
+ void printlist(void (*fptr)(void*)){
+     NODE cur;
+     cur=first;
+     while(cur!=NULL){
+        (*fptr)(cur->data);
+        cur = cur->next;
+        }
+     }
+     
+void intprint(int *n){
+    printf("%d ",*(int*) n);
+}
+
+void floatprint(float *n){
+    printf("%f ",*(float*)n);
+}
+
+int main()
+{
+    int intsize,floatsize;
+    float arr[] = {10.1, 20.2, 30.3, 40.4, 50.5};
+    int i; 
+    printf("Hello World");
+    floatsize = sizeof(float);
+    for (i=4; i>=0; i--) 
+       push(&arr[i], floatsize); 
+    printf("Created float linked list is \n"); 
+    printlist( floatprint); 
+    return 0;
+}
