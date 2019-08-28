@@ -1,0 +1,113 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node*next;
+};
+typedef struct node* NODE;
+NODE head=NULL;
+
+int count(NODE head){
+    int count1=0;
+    NODE cur;
+    cur = head->next;
+    while(cur!=head){
+        cur=cur->next;
+        count1++;
+    }
+    return count1+1;
+}
+
+int getmiddle(int count){
+    if(count%2==0)
+        return (count/2);
+    else
+        return (count+1)/2;
+}
+
+void dividelinkedlist(NODE head,int mid,int count, NODE* head1 , NODE* head2){
+    NODE cur;
+    NODE prev;
+    cur = head;
+    int x=0;
+    while(x!=mid){
+        prev = cur;
+        cur = cur->next;
+        x++;
+    }
+    printf("cur->data = %d",cur->data);
+    printf("prev->data = %d",prev->data);
+    //making firstlinkedlist
+ 
+     prev->next = head;
+     *head1 = head;
+    *head2 = cur;
+    while(cur->next!=head){
+        cur = cur->next;
+    }
+    cur->next = *head2;
+}
+
+void push(int x){
+    NODE temp= (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->next = NULL;
+    NODE last=head;
+    if(head==NULL)
+        {
+    //        printf("here");
+        head=temp;
+        head->next =head;
+        return;
+        }
+    while(last->next!=head){
+        last = last->next;
+    }
+    last->next=temp;
+    temp->next=head;
+    head=temp;
+ //  printf("pushed\t");
+}
+
+void display(NODE head){
+    NODE cur;
+    cur = head;
+  //  printf("hm");
+    while(cur->next!= head){
+      //  printf("fhahf");
+        printf("%d ",cur->data);
+        cur=cur->next;
+    }
+    printf("%d",cur->data);
+}
+
+int main()
+{
+    int count1,mid;
+    NODE head1 =NULL;
+    NODE head2 = NULL;
+    push(1);
+    push(2);
+    push(3);
+    push(4);
+    push(5);
+     display(head);
+    count1 = count(head);
+    printf("\n count = %d",count1);
+    mid = getmiddle(count1);
+    printf("  middle = %d",mid);
+    dividelinkedlist(head,mid,count1,&head1,&head2);
+     printf("\n linkedlist1: ");
+    display(head1);
+    printf("\n linkedlist2: ");
+    display(head2);
+    return 0;
+}
