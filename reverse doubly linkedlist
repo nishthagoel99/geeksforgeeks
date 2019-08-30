@@ -1,0 +1,94 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node* right;
+    struct node* left;
+};
+typedef struct node* NODE;
+
+void insertbeg(int x,NODE* head){
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->right =NULL;
+    temp->left=NULL;
+    if(*head==NULL){
+        *head = temp;
+        return;
+    }
+    NODE head1;
+    head1 = *head;
+    temp->right = head1;
+    head1->left = temp;
+    head1 = temp;
+    *head = head1;
+}
+
+void insertend(int x,NODE* head){
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->right =NULL;
+    temp->left=NULL;
+    if(*head==NULL){
+        //printf("lala");
+        *head = temp;
+        return;
+    }
+    NODE cur;
+    cur =*head;
+    while(cur->right!=NULL){
+        cur=cur->right;
+    }
+    cur->right=temp;
+    temp->left = cur;
+}
+
+void reverse(NODE* head){
+    NODE prev;
+    NODE next;
+    NODE cur=*head;
+    while(cur!=NULL){
+        prev=cur->left;
+        next =cur->right;
+        cur->left=next;
+        cur->right = prev;
+        cur = cur->left;
+    }
+    if(prev!=NULL)
+        *head=prev->left;
+}
+
+
+void printlist(NODE head){
+    NODE cur = head;
+    while(cur!=NULL){
+        printf("%d",cur->data);
+        cur = cur->right;
+    }
+}
+
+int main()
+{
+    NODE head  = NULL;
+    insertbeg(2,&head);
+    insertbeg(1,&head);
+    insertend(3,&head);
+    insertbeg(0,&head);
+    insertend(4,&head);
+   
+    printlist(head);
+    printf("\n");
+    reverse(&head);
+     printlist(head);
+
+    return 0;
+}
