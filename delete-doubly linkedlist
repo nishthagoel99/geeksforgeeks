@@ -1,0 +1,211 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node* right;
+    struct node* left;
+};
+typedef struct node* NODE;
+
+void insertbeg(int x,NODE* head){
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->right =NULL;
+    temp->left=NULL;
+    if(*head==NULL){
+        *head = temp;
+        return;
+    }
+    NODE head1;
+    head1 = *head;
+    temp->right = head1;
+    head1->left = temp;
+    head1 = temp;
+    *head = head1;
+}
+
+void insertend(int x,NODE* head){
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->right =NULL;
+    temp->left=NULL;
+    if(*head==NULL){
+        //printf("lala");
+        *head = temp;
+        return;
+    }
+    NODE cur;
+    cur =*head;
+    while(cur->right!=NULL){
+        cur=cur->right;
+    }
+    cur->right=temp;
+    temp->left = cur;
+}
+
+void afternode(int x,int val,NODE* head){
+    //NODE head1=*head;
+   
+    if(*head==NULL){
+        printf("empty");
+        return;
+    }
+    NODE cur = *head;
+    NODE head1= *head;
+    NODE next;
+    while(cur->right!=NULL && cur->data!=val){
+        cur = cur->right;
+    }
+    if(cur->right==NULL && cur->data!=val){
+        printf("value not found");
+        return;
+    }else if(cur->right==NULL && cur->data==val){
+      //  printf("here");
+        insertend(x,&head1);
+        *head =head1;
+        return;
+    } 
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->right =NULL;
+    temp->left=NULL;
+    next = cur->right;
+    next->left = temp;
+    temp->right = next;
+    cur->right = temp;
+    temp->left = cur;
+    
+    //*head = head1;
+}
+
+void beforenode(int x,int val,NODE* head){
+     if(*head==NULL){
+        printf("empty");
+        return;
+    }
+    NODE cur = *head;
+    NODE head1= *head;
+    NODE prev;
+    while(cur->right!=NULL && cur->data!=val){
+        cur = cur->right;
+    }
+    if(cur->right==NULL && cur->data!=val){
+        printf("value not found");
+        return;
+    }else if(cur->left==NULL && cur->data==val){
+      //  printf("here");
+        insertbeg(x,&head1);
+        *head =head1;
+        return;
+    }
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->right =NULL;
+    temp->left=NULL;
+    prev = cur->left;
+    prev->right = temp;
+    temp->left=prev;
+    temp->right = cur;
+    cur->left = temp;
+}
+
+void deletefirst(NODE* head){
+    NODE head1 = *head;
+    if(*head==NULL){
+        printf("empty list");
+        return;
+    }
+    NODE cur = head1;
+    head1 = cur->right;
+    head1->left = NULL;
+    free(cur);
+    cur->right =NULL;
+    cur->left=NULL;
+    *head = head1;
+}
+
+void deletelast(NODE* head){
+    if(*head==NULL){
+        printf("empty list");
+        return;
+    }
+    NODE cur = *head;
+    while(cur->right!=NULL){
+        cur = cur->right;
+    }
+    NODE prev = cur->left;
+    prev->right=NULL;
+    free(cur);
+    cur->left=NULL;
+}
+
+void deleteval(int val,NODE* head){
+    NODE head1=*head;
+    if(*head==NULL){
+        printf("empty list");
+        return;
+    }
+    NODE cur = *head;
+    while(cur->right!=NULL && cur->data!=val){
+        cur = cur->right;
+    }
+    if(cur->right==NULL && cur->data!=val ){
+        printf("value not present");
+        return;
+    }
+    if(cur->right==NULL && cur->data==val){
+        deletelast(&head1);
+        *head = head1;
+        return;
+    }
+    if(cur->left==NULL && cur->data==val){
+        deletefirst(&head1);
+        *head = head1;
+        return;
+    }
+    NODE prev =cur->left;
+    NODE next =cur->right;
+    prev->right = next;
+    next->left =prev;
+    free(cur);
+    cur->left=NULL;
+    cur->right=NULL;
+        
+}
+
+void printlist(NODE head){
+    NODE cur = head;
+    while(cur!=NULL){
+        printf("%d",cur->data);
+        cur = cur->right;
+    }
+}
+
+int main()
+{
+    NODE head  = NULL;
+    insertbeg(2,&head);
+    insertbeg(1,&head);
+    insertend(3,&head);
+    insertbeg(0,&head);
+    insertend(4,&head);
+    afternode(8,2,&head);
+    beforenode(7,8,&head);
+    printlist(head);
+    printf("\n");
+    deletefirst(&head);
+    deletelast(&head);
+     deleteval(7,&head);
+     printlist(head);
+
+    return 0;
+}
