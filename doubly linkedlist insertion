@@ -39,6 +39,7 @@ void insertend(int x,NODE* head){
     temp->right =NULL;
     temp->left=NULL;
     if(*head==NULL){
+        //printf("lala");
         *head = temp;
         return;
     }
@@ -49,6 +50,72 @@ void insertend(int x,NODE* head){
     }
     cur->right=temp;
     temp->left = cur;
+}
+
+void afternode(int x,int val,NODE* head){
+    //NODE head1=*head;
+   
+    if(*head==NULL){
+        printf("empty");
+        return;
+    }
+    NODE cur = *head;
+    NODE head1= *head;
+    NODE next;
+    while(cur->right!=NULL && cur->data!=val){
+        cur = cur->right;
+    }
+    if(cur->right==NULL && cur->data!=val){
+        printf("value not found");
+        return;
+    }else if(cur->right==NULL && cur->data==val){
+      //  printf("here");
+        insertend(x,&head1);
+        *head =head1;
+        return;
+    } 
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->right =NULL;
+    temp->left=NULL;
+    next = cur->right;
+    next->left = temp;
+    temp->right = next;
+    cur->right = temp;
+    temp->left = cur;
+    
+    //*head = head1;
+}
+
+void beforenode(int x,int val,NODE* head){
+     if(*head==NULL){
+        printf("empty");
+        return;
+    }
+    NODE cur = *head;
+    NODE head1= *head;
+    NODE prev;
+    while(cur->right!=NULL && cur->data!=val){
+        cur = cur->right;
+    }
+    if(cur->right==NULL && cur->data!=val){
+        printf("value not found");
+        return;
+    }else if(cur->left==NULL && cur->data==val){
+      //  printf("here");
+        insertbeg(x,&head1);
+        *head =head1;
+        return;
+    }
+    NODE temp = (NODE)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->right =NULL;
+    temp->left=NULL;
+    prev = cur->left;
+    prev->right = temp;
+    temp->left=prev;
+    temp->right = cur;
+    cur->left = temp;
 }
 
 void printlist(NODE head){
@@ -67,6 +134,8 @@ int main()
     insertend(3,&head);
     insertbeg(0,&head);
     insertend(4,&head);
+    afternode(8,2,&head);
+    beforenode(7,8,&head);
     printlist(head);
 
     return 0;
